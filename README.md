@@ -1,2 +1,2 @@
 # terraform_gcp
-Repository contain templates for Terraform
+Repository contain Terraform templates for Google Cloud Platform.
