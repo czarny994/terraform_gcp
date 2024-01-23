@@ -1,4 +1,4 @@
-#vpc_module.tf
+# vpc_module.tf
 
 ########################### CREATE AND CONFIGURE VPC NETWORK ###########################
 
@@ -28,7 +28,7 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_firewall" "allow-http" {
   name        = "allow-http"
-  network     = google_compute_network.vps_gitlab.name
+  network     = google_compute_network.vpc_network.name  # Corrected reference
   allow {
     protocol = "tcp"
     ports    = ["80"]
@@ -37,7 +37,7 @@ resource "google_compute_firewall" "allow-http" {
 
 resource "google_compute_firewall" "allow-https" {
   name        = "allow-https"
-  network     = google_compute_network.vps_gitlab.name
+  network     = google_compute_network.vpc_network.name  # Corrected reference
   allow {
     protocol = "tcp"
     ports    = ["443"]
@@ -46,7 +46,7 @@ resource "google_compute_firewall" "allow-https" {
 
 resource "google_compute_firewall" "allow-ssh" {
   name        = "allow-ssh"
-  network     = google_compute_network.vps_gitlab.name
+  network     = google_compute_network.vpc_network.name  # Corrected reference
   allow {
     protocol = "tcp"
     ports    = ["22"]
