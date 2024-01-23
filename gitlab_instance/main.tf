@@ -1,7 +1,4 @@
-# Select Region and zoon
-# Create VPC network for Gitlab
-# Create VM for Gitlab
-# Install packages of VMs
+# main.tf
 
 variable "REGION" {
   type    = string
@@ -15,43 +12,15 @@ variable "ZONE" {
 
 provider "google" {
   credentials = file("key/terraform_account.json")
-  region  = var.REGION
-  zone    = var.ZONE
+  region      = var.REGION
+  zone        = var.ZONE
 }
 
-########################### CREATE AND CONFIGURE VPC NETWORK ###########################
-
-resource "google_compute_network" "vpc_network" {
-  project                 = "my-project-name"
-  name                    = "vpc-gitlab"
-  auto_create_subnetworks = true
-  mtu                     = 1460
+module "vpc" {
+  source        = "./VPC/vpc_module.tf"  # Update the path to the actual module location
+  project_name  = "my-project-name"
+  vpc_name      = "vpc-gitlab"
+  subnet_cidr   = "10.0.0.0/24"  # Update with your desired CIDR range
 }
 
-resource "google_compute_firewall" "allow-http" {
-  name        = "allow-http"
-  network     = google_compute_network.vps_gitlab.name
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
-}
-
-resource "google_compute_firewall" "allow-https" {
-  name        = "allow-https"
-  network     = google_compute_network.vps_gitlab.name
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-}
-
-resource "google_compute_firewall" "allow-ssh" {
-  name        = "allow-ssh"
-  network     = google_compute_network.vps_gitlab.name
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-}
-########################### CREATE VM ###########################
+# Additional resources (VM, firewall rules, etc.) can be added here
