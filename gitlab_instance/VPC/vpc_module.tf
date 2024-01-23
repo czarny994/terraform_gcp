@@ -26,13 +26,6 @@ resource "google_compute_network" "vpc_network" {
   }
 }
 
-resource "google_compute_network" "vpc_network" {
-  project                 = "my-project-name"
-  name                    = "vpc-gitlab"
-  auto_create_subnetworks = true
-  mtu                     = 1460
-}
-
 resource "google_compute_firewall" "allow-http" {
   name        = "allow-http"
   network     = google_compute_network.vps_gitlab.name
