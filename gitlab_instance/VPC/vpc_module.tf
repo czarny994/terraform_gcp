@@ -36,6 +36,8 @@ resource "google_compute_firewall" "allow-http" {
     protocol = "tcp"
     ports    = ["80"]
   }
+
+  source_ranges = ["0.0.0.0/0"]  # Example, allow traffic from any source IP. Adjust as needed.
 }
 
 resource "google_compute_firewall" "allow-https" {
@@ -45,6 +47,8 @@ resource "google_compute_firewall" "allow-https" {
     protocol = "tcp"
     ports    = ["443"]
   }
+
+  source_ranges = ["0.0.0.0/0"]  # Example, allow traffic from any source IP. Adjust as needed.
 }
 
 resource "google_compute_firewall" "allow-ssh" {
@@ -54,4 +58,6 @@ resource "google_compute_firewall" "allow-ssh" {
     protocol = "tcp"
     ports    = ["22"]
   }
+
+  source_ranges = ["0.0.0.0/0"]  # Example, allow traffic from any source IP. Adjust as needed.
 }
