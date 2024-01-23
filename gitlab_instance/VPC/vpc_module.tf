@@ -20,10 +20,12 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = false
   mtu                     = 1460
 
-  subnetwork {
-    name          = "subnet-gitlab"
-    ip_cidr_range = var.subnet_cidr
-  }
+resource "google_compute_subnetwork" "vpc_subnet" {
+  project                  = var.project_name
+  name                     = "subnet-gitlab"
+  region                   = "your-region"  # Specify the region for the subnet
+  network                  = google_compute_network.vpc_network.name
+  ip_cidr_range            = var.subnet_cidr
 }
 
 resource "google_compute_firewall" "allow-http" {
