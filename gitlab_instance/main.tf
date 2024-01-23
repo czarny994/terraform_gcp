@@ -17,7 +17,7 @@ provider "google" {
 }
 
 module "vpc" {
-  source        = "./VPC/vpc_module.tf"  # Update the path to the actual module location
+  source        = "./VPC"  # Update the path to the actual module location
   project_name  = "my-project-name"
   vpc_name      = "vpc-gitlab"
   subnet_cidr   = "10.0.0.0/24"  # Update with your desired CIDR range
